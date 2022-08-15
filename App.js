@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Feedpage from "./screen/feedPage";
-
+import BookMark from "./screen/bookmark";
 import Profile from "./screen/profile";
 import Avatar from "./components/avatar";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -30,6 +30,17 @@ function TabScreen() {
           }}
         />
         <Tab.Screen
+          name="bookmark"
+          component={BookMark}
+          options={{
+            title: "BookMark",
+            headerShown: false,
+            tabBarIcon: ({ color, size }) => (
+              <TabBarIcon name="star" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
           name="checker"
           component={NewsChecker}
           options={{
@@ -40,6 +51,7 @@ function TabScreen() {
             ),
           }}
         />
+        
       </Tab.Navigator>
     </View>
   );
@@ -49,19 +61,16 @@ export default function App() {
   return (
     <View style={styles.root}>
       <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={({ route, navigation }) => ({
-            headerRight: () => {
-              return <Avatar onPress={() => navigation.navigate("profile")} />;
-            },
-          })}
-        >
+        <Stack.Navigator>
           <Stack.Screen
             name="body"
             component={TabScreen}
-            options={{
+            options={({navigation}) =>({
               title: "Newstein",
-            }}
+              headerRight: () => {
+                return <Avatar onPress={() => navigation.navigate("profile")} />;
+              },
+            })}
           />
           <Stack.Screen name="profile" component={Profile} />
         </Stack.Navigator>
