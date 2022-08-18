@@ -20,7 +20,7 @@ function TabScreen() {
       >
         <Tab.Screen
           name="feedpage"
-          component={Feedpage}
+          children={() => <Feedpage username="Kaushal Aggarwal" />}
           options={{
             title: "Home",
             headerShown: false,

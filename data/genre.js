@@ -1,0 +1,1 @@
+export const GENRE = ['All', 'India','Foreign', 'Trending', 'Games', 'Politics', "Technology"];

@@ -1,8 +1,15 @@
-import { View, Text, StyleSheet } from "react-native";
-function Feedpage() {
+import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import UserIntro from "../components/feedpage/userIntro";
+import Genre from "../components/genre";
+
+
+function Feedpage({ username }) {
   return (
     <View style={styles.root}>
-        <Text>Home</Text>
+      <ScrollView>
+        <UserIntro username={username} />
+        <Genre />
+      </ScrollView>
     </View>
   );
 }
@@ -12,7 +19,8 @@ export default Feedpage;
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor:'white',
-    padding: 16,
+    backgroundColor: "white",
+    padding: 24,
   },
+  
 });
