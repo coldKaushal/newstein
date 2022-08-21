@@ -1,9 +1,76 @@
-import { Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
+import { rootStyle } from "../utilities/rootStyles";
+import { FontAwesome5 } from "@expo/vector-icons";
+const ImageSize = 150;
 
-function Profile({navigation}){
-    return <View>
-        <Text>profile</Text>
+function Profile({ username, email }) {
+  return (
+    <View style={[styles.root, rootStyle.root]}>
+      <View style={styles.imageContainer}>
+        <Image
+          source={require("../assets/images/avatar.png")}
+          style={styles.image}
+        />
+      </View>
+      <View style={styles.editIconContainerOuter}>
+        <View style={styles.editIconContainer}>
+          <FontAwesome5 name="pencil-alt" size={24} color="white" />
+        </View>
+      </View>
+      <View style={styles.textContainer}>
+        <Text style={styles.boldText}>{username}</Text>
+        <Text style={styles.lightText}>{email}</Text>
+      </View>
     </View>
+  );
 }
 
 export default Profile;
+
+const styles = StyleSheet.create({
+  root: {
+    alignItems: "center",
+  },
+  image: {
+    height: ImageSize,
+    width: ImageSize,
+    borderRadius: ImageSize / 2,
+  },
+  imageContainer: {
+    borderWidth: 4,
+    borderColor: "#E8B055",
+    borderRadius: ImageSize / 2,
+    borderStyle: "dashed",
+  },
+  editIconContainer: {
+    backgroundColor: "black",
+    height: 40,
+    width: 40,
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  editIconContainerOuter: {
+    marginTop: -20,
+    height: 50,
+    width: 50,
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+    elevation: 4,
+  },
+  textContainer: {
+    marginTop: 16,
+    alignItems: 'center',
+  },
+  boldText:{
+    fontSize: 20,
+    fontWeight: '600',
+  },
+  lightText:{
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#9B9FA7',
+  }
+});

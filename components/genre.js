@@ -21,7 +21,13 @@ function Genre() {
           onPress={() => updateActiveGenre(item)}
         >
           <View>
-            <Text style={activeGenre===item ? styles.activeText : styles.inactiveText}>{item}</Text>
+            <Text
+              style={
+                activeGenre === item ? styles.activeText : styles.inactiveText
+              }
+            >
+              {item}
+            </Text>
           </View>
         </Pressable>
       </View>
@@ -30,7 +36,9 @@ function Genre() {
 
   return (
     <View style={styles.root}>
-      <ScrollView horizontal={true}>{GENRE.map(createGenre)}</ScrollView>
+      <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
+        {GENRE.map(createGenre)}
+      </ScrollView>
     </View>
   );
 }
@@ -45,8 +53,8 @@ const styles = StyleSheet.create({
   genreItem: {
     paddingVertical: 8,
     paddingHorizontal: 16,
-    marginLeft: 8,
     borderRadius: 16,
+    marginRight: 8,
     overflow: "hidden",
     elevation: 4,
     marginVertical: 4,
@@ -57,10 +65,10 @@ const styles = StyleSheet.create({
   inactiveContainer: {
     backgroundColor: "#f6f6f6",
   },
-  activeText:{
-    color: 'white',
+  activeText: {
+    color: "white",
   },
-  inactiveText:{
-    color: 'black',
-  }
+  inactiveText: {
+    color: "black",
+  },
 });

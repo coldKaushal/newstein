@@ -64,7 +64,7 @@ function TabScreen() {
         />
         <Tab.Screen
           name="profile"
-          component={Profile}
+          children={() => <Profile username="Kaushal Aggarwal" email="kauagg111@gmail.com" />}
           options={{
             title: "Profile",
             headerShown: false,
