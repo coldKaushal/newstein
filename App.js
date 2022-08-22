@@ -55,7 +55,7 @@ function TabScreen() {
           name="settings"
           component={Settings}
           options={{
-            title: "Settings",
+            title: "Personalize",
             headerShown: false,
             tabBarIcon: ({ color, size }) => (
               <TabBarIcon name="settings" color={color} size={size} />

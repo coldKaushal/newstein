@@ -4,6 +4,7 @@ export const rootStyle = StyleSheet.create({
     root: {
       flex: 1,
       backgroundColor: "white",
-      padding: 24,
+      paddingHorizontal: 24,
+      paddingVertical: 16,
     },
   });
