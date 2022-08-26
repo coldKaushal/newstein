@@ -22,7 +22,6 @@ function Feedpage({ username }) {
   }
   return (
     <View style={rootStyle.root}>
-      <ScrollView>
         <View style={styles.headerWrapper}>
           <UserIntro username={username} />
           <View style={styles.iconWrapper}>
@@ -44,7 +43,6 @@ function Feedpage({ username }) {
         />
         <Genre />
         <Posts />
-      </ScrollView>
     </View>
   );
 }

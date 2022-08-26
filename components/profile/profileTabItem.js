@@ -1,9 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 
-function ProfileTabItem({ iconName, title, bottomBorderStyle }) {
+function ProfileTabItem({ iconName, title, bottomBorderStyle, onPress }) {
+  function handlePress(){
+    onPress(title);
+  }
   return (
-    <Pressable android_ripple={{color: '#ccc'}}>
+    <Pressable android_ripple={{color: '#ccc'}} onPress={handlePress}>
       <View style={[bottomBorderStyle, styles.root]}>
         <Ionicons name={iconName} size={26} color="black" style={styles.icon} />
         <Text style={styles.text}>{title}</Text>

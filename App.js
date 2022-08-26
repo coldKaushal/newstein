@@ -9,6 +9,7 @@ import Profile from "./screen/profile";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import TabBarIcon from "./components/tabBarIcon";
 import NewsChecker from "./screen/newsChecker";
+
 const Tab = createBottomTabNavigator();
 
 const Stack = createNativeStackNavigator();
@@ -16,8 +17,7 @@ const Stack = createNativeStackNavigator();
 function TabScreen() {
   return (
     <View style={styles.root}>
-      <Tab.Navigator
-      >
+      <Tab.Navigator>
         <Tab.Screen
           name="feedpage"
           children={() => <Feedpage username="Kaushal Aggarwal" />}
@@ -64,7 +64,9 @@ function TabScreen() {
         />
         <Tab.Screen
           name="profile"
-          children={() => <Profile username="Kaushal Aggarwal" email="kauagg111@gmail.com" />}
+          children={() => (
+            <Profile username="Kaushal Aggarwal" email="kauagg111@gmail.com" />
+          )}
           options={{
             title: "Profile",
             headerShown: false,
@@ -81,23 +83,21 @@ function TabScreen() {
 export default function App() {
   return (
     <>
-    <StatusBar color="invert" />
-    <View style={styles.root}>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{
-          
-        }}>
-          <Stack.Screen
-            name="body"
-            component={TabScreen}
-            options={({ navigation }) => ({
-              title: "Newstein",
-            })}
-          />
-          <Stack.Screen name="profile" component={Profile} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </View>
+      <StatusBar color="invert" />
+      <View style={styles.root}>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{}}>
+            <Stack.Screen
+              name="body"
+              component={TabScreen}
+              options={({ navigation }) => ({
+                title: "Newstein",
+              })}
+            />
+            
+          </Stack.Navigator>
+        </NavigationContainer>
+      </View>
     </>
   );
 }

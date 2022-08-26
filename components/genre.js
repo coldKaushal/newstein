@@ -47,7 +47,6 @@ export default Genre;
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1,
     marginTop: 14,
   },
   genreItem: {

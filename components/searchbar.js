@@ -19,7 +19,7 @@ export default SearchBar;
 const styles = StyleSheet.create({
   root: {
     width: "100%",
-    backgroundColor: "#f6f6f6",
+    backgroundColor: "white",
     marginTop: 4,
     height: 50,
     borderRadius: 25,
