@@ -1,9 +1,23 @@
+import { useState } from "react";
 import { Image, View, Text, StyleSheet, Pressable } from "react-native";
 import PublishTime from "../../utilities/publishTime";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 function PostItem({ item }) {
+
+  const [bookmarkIcon, setBookmarkIcon] = useState("bookmark-o")
+
+  function handlePress(){
+    if(bookmarkIcon==="bookmark-o"){
+      setBookmarkIcon("bookmark");
+    }else{
+      setBookmarkIcon("bookmark-o");
+    }
+  }
+
+
+
   return (
     <View style={styles.root}>
       <Pressable android_ripple={{ color: "#ccc" }} style={{ margin: 0 }}>
@@ -25,8 +39,8 @@ function PostItem({ item }) {
               <Text>15</Text>
             </View>
             <View style={styles.bookmark}>
-              <Pressable android_ripple={{color: '#ccc'}} >
-                <FontAwesome name="bookmark-o" size={24} color="black" />
+              <Pressable android_ripple={{color: '#ccc'}} onPress={handlePress} >
+                <FontAwesome name={bookmarkIcon} size={24} color="black" />
               </Pressable>
             </View>
           </View>
