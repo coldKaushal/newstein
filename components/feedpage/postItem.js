@@ -1,20 +1,37 @@
-import { Image, View, Text, StyleSheet } from "react-native";
+import { Image, View, Text, StyleSheet, Pressable } from "react-native";
 import PublishTime from "../../utilities/publishTime";
-
-
-
+import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 function PostItem({ item }) {
   return (
     <View style={styles.root}>
-      <Image source={{ uri: item.urlToImage }} style={styles.image} />
-      <View style={styles.container}>
-        <Text style={styles.category}>{"SPORTS"}</Text>
-        <Text style={styles.title}>{item.title}</Text>
-        <View style={styles.subs}>
-          <Text style={styles.author}>{item.author}</Text>
-          <Text>{PublishTime(item.publishedAt)}</Text>
+      <Pressable android_ripple={{ color: "#ccc" }} style={{ margin: 0 }}>
+        <Image source={{ uri: item.urlToImage }} style={styles.image} />
+        <View style={styles.container}>
+          <Text style={styles.category}>{"SPORTS"}</Text>
+          <Text style={styles.title}>{item.title}</Text>
+          <View style={styles.subs}>
+            <Text style={styles.author}>{item.author}</Text>
+            <Text>{PublishTime(item.publishedAt)}</Text>
+          </View>
+          <View style={styles.subs1}>
+            <View style={styles.rowView}>
+              <Ionicons name="star-outline" size={18} color="black" />
+              <Text>678</Text>
+            </View>
+            <View style={styles.rowView}>
+              <FontAwesome5 name="comment" size={18} color="black" />
+              <Text>15</Text>
+            </View>
+            <View style={styles.bookmark}>
+              <Pressable android_ripple={{color: '#ccc'}} >
+                <FontAwesome name="bookmark-o" size={24} color="black" />
+              </Pressable>
+            </View>
+          </View>
         </View>
-      </View>
+      </Pressable>
     </View>
   );
 }
@@ -27,10 +44,11 @@ const styles = StyleSheet.create({
     marginVertical: 16,
     backgroundColor: "white",
     overflow: "hidden",
+    flex: 1,
   },
-  container:{
+  container: {
+    flex: 1,
     paddingHorizontal: 10,
-    paddingTop: 8,
     paddingBottom: 16,
   },
   category: {
@@ -38,20 +56,38 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   image: {
+    flex: 1,
     width: "100%",
     height: 200,
+  },
+  imageContainer: {
+    flexDirection: "row",
+  },
+  bookmark: {
+    position: "absolute",
+    right: 10,
+    overflow: "hidden"
   },
   title: {
     fontWeight: "bold",
     fontSize: 20,
   },
-  subs:{
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 8,
+  subs: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 8,
   },
-  author:{
-    color: '#717171',
-    fontWeight: '500',
-  }
+  author: {
+    color: "#717171",
+    fontWeight: "500",
+  },
+  subs1: {
+    flexDirection: "row",
+    marginTop: 8,
+  },
+  rowView: {
+    flexDirection: "row",
+    marginRight: 16,
+    alignItems: "center",
+  },
 });
