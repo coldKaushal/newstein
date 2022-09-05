@@ -2,7 +2,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 
 function ProfileTabItem({ iconName, title, bottomBorderStyle, onPress }) {
+  
   function handlePress(){
+    console.log(title);
     onPress(title);
   }
   return (

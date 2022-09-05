@@ -1,4 +1,5 @@
 import { Image, StyleSheet, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { rootStyle } from "../utilities/rootStyles";
 import UserBanner from "../components/profile/userBanner";
 import ProfileTabs from "../components/profile/profileTabs";
@@ -8,8 +9,10 @@ import PersonalInformation from "./profile/perosnalInformation";
 const Stack = createNativeStackNavigator();
 const ImageSize = 150;
 
-function RootScreen({navigation, username, email }) {
+function RootScreen( {username, email }) {
+  const navigation = useNavigation();
   function handlePress(name) {
+    console.log(name);
     navigation.navigate(name);
   }
 
@@ -24,12 +27,13 @@ function RootScreen({navigation, username, email }) {
 }
 
 function Profile({navigation, username, email }) {
+  console.log(username);
   return (
     <View style={styles.root}>
       <Stack.Navigator>
         <Stack.Screen
           name="root"
-          component={RootScreen}
+          children={() => (<RootScreen username={username} email={email}  />)}
           options={{
             headerShown: false,
           }}

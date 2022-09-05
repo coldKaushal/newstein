@@ -3,6 +3,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 const ImageSize = 150;
 
 function UserBanner({username, email}) {
+  console.log(username);
   return (
     <>
       <View style={styles.imageContainer}>
