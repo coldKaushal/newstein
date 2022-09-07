@@ -5,12 +5,6 @@ function ProfileTabs({onPress}) {
   return (
     <View style={styles.root}>
       <ProfileTabItem
-        iconName={"person-circle-outline"}
-        title={"Personal Information"}
-        bottomBorderStyle={styles.borderBottom}
-        onPress = {onPress}
-      />
-      <ProfileTabItem
         iconName={"call-sharp"}
         title={"Contact Us"}
         bottomBorderStyle={styles.borderBottom}
@@ -34,5 +28,6 @@ const styles = StyleSheet.create({
   },
   root:{
     marginTop: 16,
+    paddingHorizontal: 24,
   }
 });

@@ -1,47 +1,26 @@
-import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import PreferenceSwitch from "../components/settings/preferenceSwitch";
-import { DATA } from "../data/settingsData";
-import { rootStyle } from "../utilities/rootStyles";
-function Settings() {
+import { View, Text, StyleSheet, FlatList } from "react-native";
+import { CATEGORY } from "../data/genre";
 
-    const [preference, updatePreference] = useState({
-        search: true,
-        interaction: true,
-        location: true,
-        category: true,
-
-    })
-    function handleToggle(field){
-        const val = preference[field];
-        console.log(val);
-        updatePreference(prev => {
-            return {
-                ...prev,
-                [field]: !val,
-            }
-        });
-    }
-
-  function createPreferenceSwitch(item){
-    return <PreferenceSwitch
-    key={item.id}
-    heading={item.heading}
-    description={item.description}
-    value={preference[item.id]}
-    onToggle={() => handleToggle(item.id)}
-  />
-  }
+function createItem({ item }) {
   return (
-    <View style={[rootStyle.root, styles.root]}>
-      <Text style={styles.title}>Preference</Text>
-      <Text>
-        Update your preferences to get more personlaised news articles in your
-        feed
-      </Text>
-      <View style={styles.preferenceWrapper}>
-        {DATA.map(createPreferenceSwitch)}
-      </View>
+    <View style={styles.itemWrapper}>
+      <Text>{item}</Text>
+    </View>
+  );
+}
+
+function Settings() {
+  return (
+    <View style={styles.root}>
+      <Text style={styles.heading}>Categories</Text>
+      <Text>Select the tiles to view the articles of only that category</Text>
+      <FlatList
+        data={CATEGORY}
+        renderItem={createItem}
+        numColumns={3}
+        keyExtractor={(item, index) => index}
+        columnWrapperStyle={{ flexWrap: 'wrap'}}
+      />
     </View>
   );
 }
@@ -50,13 +29,19 @@ export default Settings;
 
 const styles = StyleSheet.create({
   root: {
+    flex: 1,
     backgroundColor: "white",
+    paddingVertical: 16,
+    paddingHorizontal: 24,
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "600",
+  heading: {
+    fontSize: 24,
+    fontWeight: "bold",
   },
-  preferenceWrapper:{
-    marginTop: 16,
-  }
+  itemWrapper: {
+    margin: 8,
+    borderWidth: 1,
+    padding: 8,
+    borderRadius: 8,
+  },
 });

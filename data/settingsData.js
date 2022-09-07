@@ -1,4 +1,4 @@
-export const DATA = [
+export const settingData = [
   {
     id: "search",
     heading: "Search History",
