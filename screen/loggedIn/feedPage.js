@@ -29,7 +29,7 @@ function Feedpage({ username }) {
               <View style={styles.iconWrapper}>
                 <Ionicons
                   name="filter"
-                  size={24}
+                  size={24} 
                   color="black"
                   style={styles.icon}
                 />
