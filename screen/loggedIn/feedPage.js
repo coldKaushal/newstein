@@ -7,11 +7,11 @@ import {
   ScrollView,
   Pressable,
 } from "react-native";
-import Posts from "../components/feedpage/posts";
-import UserIntro from "../components/feedpage/userIntro";
-import Genre from "../components/genre";
-import SearchBar from "../components/searchbar";
-import { rootStyle } from "../utilities/rootStyles";
+import Posts from "../../components/feedpage/posts";
+import UserIntro from "../../components/feedpage/userIntro";
+import Genre from "../../components/genre";
+import SearchBar from "../../components/searchbar";
+import { rootStyle } from "../../utilities/rootStyles";
 import { Ionicons } from "@expo/vector-icons";
 
 function Feedpage({ username }) {

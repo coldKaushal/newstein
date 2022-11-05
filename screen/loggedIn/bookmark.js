@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import Posts from "../components/feedpage/posts";
-import Genre from "../components/genre";
-import SearchBar from "../components/searchbar";
+import Posts from "../../components/feedpage/posts";
+import Genre from "../../components/genre";
+import SearchBar from "../../components/searchbar";
 import { FontAwesome } from "@expo/vector-icons";
-import DateRangePicker from "../components/dateRangePicker";
-import { rootStyle } from "../utilities/rootStyles";
+
+import { rootStyle } from "../../utilities/rootStyles";
 
 function BookMark() {
   const [fromDate, updateFromDate] = useState(new Date());
@@ -24,12 +24,6 @@ function BookMark() {
           />
           <Text style={styles.bookmarkCount}>178</Text>
         </View>
-        {/* <DateRangePicker
-        fromDate={fromDate}
-        toDate={toDate}
-        updateFromDate={updateFromDate}
-        updateToDate={updateToDate}
-        /> */}
       </View>
       <SearchBar />
       <Genre />

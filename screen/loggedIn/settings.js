@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, FlatList } from "react-native";
-import { CATEGORY } from "../data/genre";
+import { CATEGORY } from "../../data/genre";
 
 function createItem({ item }) {
   return (

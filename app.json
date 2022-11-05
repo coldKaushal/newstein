@@ -1,7 +1,8 @@
 {
   "expo": {
+    "scheme": "newstein",
     "name": "Newstein",
-    "slug": "Newstein",
+    "slug": "newstein",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

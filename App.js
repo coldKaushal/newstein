@@ -2,82 +2,54 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Settings from "./screen/settings";
-import Feedpage from "./screen/feedPage";
-import BookMark from "./screen/bookmark";
-import Profile from "./screen/profile";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import TabBarIcon from "./components/tabBarIcon";
-import NewsChecker from "./screen/newsChecker";
-
-const Tab = createBottomTabNavigator();
-
+import TabScreen from "./screen/loggedIn/wrapperScreen";
+import SignIn from "./screen/notLoggedIn/signIn";
+import SignUp from "./screen/notLoggedIn/signUp";
+import { useContext, useState } from "react";
+import AuthContextProvider, { AuthContext } from "./store/authContext";
 const Stack = createNativeStackNavigator();
 
-function TabScreen() {
+function AuthStack() {
   return (
-    <View style={styles.root}>
-      <Tab.Navigator>
-        <Tab.Screen
-          name="feedpage"
-          children={() => <Feedpage username="Kaushal Aggarwal" />}
-          options={{
-            title: "Home",
-            headerShown: false,
-            tabBarIcon: ({ color, size }) => (
-              <TabBarIcon name="home" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="checker"
-          component={NewsChecker}
-          options={{
-            title: "Checker",
-            headerShown: false,
-            tabBarIcon: ({ color, size }) => (
-              <TabBarIcon name="search" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="bookmark"
-          component={BookMark}
-          options={{
-            title: "Saved",
-            headerShown: false,
-            tabBarIcon: ({ color, size }) => (
-              <TabBarIcon name="bookmarks" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="settings"
-          component={Settings}
-          options={{
-            title: "Personalize",
-            headerShown: false,
-            tabBarIcon: ({ color, size }) => (
-              <TabBarIcon name="settings" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="profile"
-          children={() => (
-            <Profile username="Kaushal Aggarwal" email="kauagg111@gmail.com" />
-          )}
-          options={{
-            title: "Profile",
-            headerShown: false,
-            tabBarIcon: ({ color, size }) => (
-              <TabBarIcon name="person-circle" color={color} size={size} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </View>
+    <Stack.Navigator screenOptions={{}}>
+      <Stack.Screen
+        name="signin"
+        component={SignIn}
+        options={({ navigation }) => ({
+          title: "Newstein",
+        })}
+      />
+      <Stack.Screen
+        name="signup"
+        component={SignUp}
+        options={({ navigation }) => ({
+          title: "Newstein",
+        })}
+      />
+    </Stack.Navigator>
   );
+}
+
+function AuthenticatedStack() {
+  return (
+    <Stack.Navigator screenOptions={{}}>
+      <Stack.Screen
+        name="body"
+        component={TabScreen}
+        options={({ navigation }) => ({
+          title: "Newstein",
+        })}
+      />
+    </Stack.Navigator>
+  );
+}
+
+
+function Navigation(){
+  const authCtx = useContext(AuthContext);
+  return <NavigationContainer>
+  {authCtx.isAuthenticated ? <AuthenticatedStack /> : <AuthStack />}
+</NavigationContainer>
 }
 
 export default function App() {
@@ -85,18 +57,9 @@ export default function App() {
     <>
       <StatusBar color="invert" />
       <View style={styles.root}>
-        <NavigationContainer>
-          <Stack.Navigator screenOptions={{}}>
-            <Stack.Screen
-              name="body"
-              component={TabScreen}
-              options={({ navigation }) => ({
-                title: "Newstein",
-              })}
-            />
-            
-          </Stack.Navigator>
-        </NavigationContainer>
+        <AuthContextProvider>
+          <Navigation />
+        </AuthContextProvider>
       </View>
     </>
   );

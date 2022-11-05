@@ -1,25 +1,25 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   Button,
-  Image,
   ScrollView,
   StyleSheet,
   Text,
   View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { rootStyle } from "../utilities/rootStyles";
-import UserBanner from "../components/profile/userBanner";
-import ProfileTabs from "../components/profile/profileTabs";
+import UserBanner from "../../components/profile/userBanner";
+import ProfileTabs from "../../components/profile/profileTabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import PersonalInformation from "./profile/perosnalInformation";
-import { settingData } from "../data/settingsData";
-import PreferenceSwitch from "../components/settings/preferenceSwitch";
+import { settingData } from "../../data/settingsData";
+import PreferenceSwitch from "../../components/settings/preferenceSwitch";
+import { AuthContext } from "../../store/authContext";
 
 const Stack = createNativeStackNavigator();
 const ImageSize = 150;
 
 function RootScreen({ username, email }) {
+  const authCtx = useContext(AuthContext);
   const navigation = useNavigation();
   const [preference, updatePreference] = useState({
     search: true,
@@ -29,7 +29,10 @@ function RootScreen({ username, email }) {
   });
   function handlePress(name) {
     console.log(name);
-    navigation.navigate(name);
+    if(name==='Log Out'){
+      authCtx.logout();
+    }
+    //navigation.navigate(name);
   }
   function handleEditProfile() {}
 

@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet, Image } from "react-native";
-import { rootStyle } from "../../utilities/rootStyles";
-import { PERSONALINFORMATION } from "../../data/informativeData";
+import { rootStyle } from "../../../utilities/rootStyles";
+
 
 function PersonalInformation({username, email}){
     return <View style={[rootStyle.root, styles.root]}>
         <View style={styles.imageWrapper}>
-            <Image style={styles.image} source={require('../../assets/images/avatar.png')} />
+            <Image style={styles.image} source={require('../../../assets/images/avatar.png')} />
         </View>
     </View>
 }
