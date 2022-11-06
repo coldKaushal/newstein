@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { View, Text, StyleSheet, Button, Alert, Pressable } from "react-native";
 import Input from "../../components/auth/input.";
 import { useNavigation } from "@react-navigation/native";
-import { SignInValidation } from "../../components/validator/credential";
+import { EmailValidator, PasswordValidator, SignInValidation } from "../../components/validator/credential";
 import { login } from "../../utilities/auth";
 import LoadingOverlay from "../../components/ui/loadingOverlay";
 import { AuthContext } from "../../store/authContext";
@@ -13,10 +13,11 @@ import styles from "../../components/styles/signingStyles";
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailEntered, setEmailEntered] = useState(false);
+  const [passwordEntered, setPasswordEntered] = useState(false);
   const navigation = useNavigation();
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const authCtx = useContext(AuthContext);
-
   async function loginHandler() {
     setIsAuthenticating(true);
     if (SignInValidation(email, password)) {
@@ -24,11 +25,11 @@ export default function SignIn() {
         const token = await login(email, password);
         authCtx.authenticate(token);
       } catch (e) {
-        Alert.alert("wrong", "wut");
+        Alert.alert("Error", "Something went wrong, make sure you have entered valid credentials and try again or try again after some time");
         setIsAuthenticating(false);
       }
     } else {
-      Alert.alert("wrong", "try again");
+      Alert.alert("Invalid", "Credentials entered are invalid, please try again.");
       setIsAuthenticating(false);
     }
   }
@@ -52,14 +53,18 @@ export default function SignIn() {
             value={email}
             onChange={setEmail}
             placeholder="example@gmail.com"
+            onPressIn={() => setEmailEntered(true)}
           />
+          {!EmailValidator(email) && emailEntered && <Text style={styles.errorMessage}>Invalid Email Address</Text>}
           <Input
             label={"Password"}
             keyboardType="default"
             value={password}
             onChange={setPassword}
             placeholder="123456789"
+            onPressIn={() => setPasswordEntered(true)}
           />
+          {!PasswordValidator(password) && passwordEntered && <Text style={styles.errorMessage}>Password too short</Text>}
         </View>
         <View style={styles.buttonWrapper}>
           <CustomButton title="Login" onPress={loginHandler} />
@@ -73,4 +78,3 @@ export default function SignIn() {
     </View>
   );
 }
-

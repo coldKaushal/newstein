@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
-function Input({ label, keyboardType, onChange, value, placeholder }) {
+function Input({ label, keyboardType, onChange, value, placeholder, onPressIn }) {
   const [borderColor, setBorderColor] = useState("black");
 
   return (
@@ -11,6 +11,7 @@ function Input({ label, keyboardType, onChange, value, placeholder }) {
         caretHidden={false}
         autoCapitalize={false}
         autoCorrect={false}
+        onPressIn={onPressIn}
         keyboardType={keyboardType}
         onChangeText={onChange}
         placeholder={placeholder}

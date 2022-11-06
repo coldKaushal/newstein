@@ -26,6 +26,10 @@ const styles = StyleSheet.create({
     linkText: {
       color: "#616C8B",
     },
+    errorMessage:{
+      marginLeft: 5,
+      color: 'red'
+    }
   });
 
 export default styles;

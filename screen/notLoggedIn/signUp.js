@@ -4,7 +4,7 @@ import Input from "../../components/auth/input.";
 import { View, Text, Button, StyleSheet, Pressable } from "react-native";
 import { createUser } from "../../utilities/auth";
 import { Alert } from "react-native";
-import { SignUpValidation } from "../../components/validator/credential";
+import { EmailValidator, PasswordValidator, SignUpValidation } from "../../components/validator/credential";
 import LoadingOverlay from "../../components/ui/loadingOverlay";
 import { AuthContext } from "../../store/authContext";
 import CustomButton from "../../components/ui/customButton";
@@ -16,6 +16,8 @@ export default function SignUp() {
   const [confEmail, setConfEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
+  const [emailEntered, setEmailEntered] = useState(false);
+  const [passwordEntered, setPasswordEntered] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const authCtx = useContext(AuthContext);
 
@@ -28,11 +30,13 @@ export default function SignUp() {
         const token = await createUser(email, password);
         authCtx.authenticate(token);
       } catch (e) {
-        setIsAuthenticating(false);
+        Alert.alert("Error", "Something went wrong, make sure you have entered valid credentials and try again or try again after some time");
+        
       }
     } else {
-      Alert.alert("wrong", "try again");
+      Alert.alert("Invalid", "Credentials entered are invalid, please try again.");
     }
+    setIsAuthenticating(false);
   }
   function navigate(){
     navigation.replace("signin");
@@ -51,7 +55,9 @@ export default function SignUp() {
           value={email}
           onChange={setEmail}
           placeholder="example@gmail.com"
+          onPressIn={() => setEmailEntered(true)}
         />
+        {!EmailValidator(email) && emailEntered && <Text style={styles.errorMessage}>Invalid email address</Text>}
         <Input
           label={"Confirm email"}
           keyboardType="email-address"
@@ -59,13 +65,16 @@ export default function SignUp() {
           onChange={setConfEmail}
           placeholder="example@gmail.com"
         />
+        {email!==confEmail && <Text style={styles.errorMessage}>Email is not matching</Text>}
         <Input
           label={"Password"}
           keyboardType="default"
           value={password}
           onChange={setPassword}
           placeholder="123456789"
+          onPressIn={() => setPasswordEntered(true)}
         />
+        {!PasswordValidator(password) && passwordEntered && <Text style={styles.errorMessage}>Password too short</Text>}
         <Input
           label={"Confirm password"}
           keyboardType="default"
@@ -73,6 +82,7 @@ export default function SignUp() {
           onChange={setConfPassword}
           placeholder="123456789"
         />
+        {email!==confEmail && <Text style={styles.errorMessage}>Password is not matching</Text>}
       </View>
       <View style={styles.buttonWrapper}>
         <CustomButton title="Sign up" onPress={signUpHandler} />
