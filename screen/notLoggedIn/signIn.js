@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { View, Text, StyleSheet, Button, Alert, Pressable } from "react-native";
-import Input from "../../components/auth/input.";
+import Input from "../../components/auth/input";
 import { useNavigation } from "@react-navigation/native";
 import { EmailValidator, PasswordValidator, SignInValidation } from "../../components/validator/credential";
 import { login } from "../../utilities/auth";
@@ -8,8 +8,8 @@ import LoadingOverlay from "../../components/ui/loadingOverlay";
 import { AuthContext } from "../../store/authContext";
 import CustomButton from "../../components/ui/customButton";
 import styles from "../../components/styles/signingStyles";
-
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { GetUserProfile } from "../../utilities/userAPI";
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,12 +18,38 @@ export default function SignIn() {
   const navigation = useNavigation();
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const authCtx = useContext(AuthContext);
+
+
+  async function fetchUser() {
+    AsyncStorage.getItem("token").then((storedToken) => {
+      AsyncStorage.getItem("email").then((storedEmail) => {
+        if (storedToken) {
+          console.log(storedEmail);
+          GetUserProfile(storedEmail).then((response) => {
+            console.log("token");
+            console.log(response.data);
+            authCtx.authenticate(
+              storedToken,
+              storedEmail,
+              response.data.name,
+              response.data.preference
+            );
+          });
+        }
+      });
+    });
+    
+  }
+
   async function loginHandler() {
     setIsAuthenticating(true);
     if (SignInValidation(email, password)) {
       try {
         const token = await login(email, password);
-        authCtx.authenticate(token);
+        authCtx.authenticate(token, email);
+        fetchUser();
+
+
       } catch (e) {
         Alert.alert("Error", "Something went wrong, make sure you have entered valid credentials and try again or try again after some time");
         setIsAuthenticating(false);

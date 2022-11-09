@@ -1,6 +1,6 @@
 import { View, Text, Switch, StyleSheet } from "react-native";
 
-function PreferenceSwitch({ heading, description, value, onToggle }) {
+function PreferenceSwitch({ heading, description, value, onToggle, disable }) {
   return (
     <View style={styles.root}>
       <View style={styles.text}>
@@ -12,6 +12,7 @@ function PreferenceSwitch({ heading, description, value, onToggle }) {
         thumbColor={value ? "#fff" : "#f4f3f4"}
         value={value}
         onValueChange={onToggle}
+        disabled={disable}
       />
     </View>
   );

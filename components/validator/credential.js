@@ -7,8 +7,8 @@ export function PasswordValidator(password){
     return password.length>6;
 }
 
-export function SignUpValidation(email, confEmail, password, confPassword){
-    if( EmailValidator(email) && PasswordValidator(password) &&  email===confEmail && password===confPassword )
+export function SignUpValidation(name, email,confEmail, password, confPassword){
+    if(name!=="" && EmailValidator(email) && confEmail===email && PasswordValidator(password) && password===confPassword )
         return true;
     return false;
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   View,
   Text,
@@ -13,10 +13,14 @@ import Genre from "../../components/genre";
 import SearchBar from "../../components/searchbar";
 import { rootStyle } from "../../utilities/rootStyles";
 import { Ionicons } from "@expo/vector-icons";
+import { AuthContext } from "../../store/authContext";
 
-function Feedpage({ username }) {
+
+
+function Feedpage() {
+  const authCtx = useContext(AuthContext);
+  const username = authCtx.name;
   const [searchQuery, setSearchQuery] = useState("");
-
   function onChangeSearch(query) {
     setSearchQuery(query);
   }

@@ -15,7 +15,7 @@ export default function TabScreen() {
   const authCtx = useContext(AuthContext);
   const token = authCtx.token;
   useEffect(() => {
-    console.log(token);
+    //console.log(token);
     axios
       .get(
         "https://react-native-course-fde3a-default-rtdb.firebaseio.com/message.json?auth=" +

@@ -5,10 +5,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TabScreen from "./screen/loggedIn/wrapperScreen";
 import SignIn from "./screen/notLoggedIn/signIn";
 import SignUp from "./screen/notLoggedIn/signUp";
-import { useContext, useEffect, useState} from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthContextProvider, { AuthContext } from "./store/authContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as SplashScreen from 'expo-splash-screen';
+import * as SplashScreen from "expo-splash-screen";
+import { GetUserProfile } from "./utilities/userAPI";
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
 
@@ -47,39 +48,54 @@ function AuthenticatedStack() {
   );
 }
 
-
-function Navigation(){
+function Navigation() {
   const authCtx = useContext(AuthContext);
-  return <NavigationContainer>
-  {authCtx.isAuthenticated ? <AuthenticatedStack /> : <AuthStack />}
-</NavigationContainer>
+  return (
+    <NavigationContainer>
+      {authCtx.isAuthenticated ? <AuthenticatedStack /> : <AuthStack />}
+    </NavigationContainer>
+  );
 }
 
-function Root(){
+function Root() {
   const AuthCtx = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
-  useEffect(()=>{
-    async function fetchToken(){
-        const storedToken = await AsyncStorage.getItem('token');
-        if(storedToken){
-            AuthCtx.authenticate(storedToken);
+    async function fetchToken() {
+    AsyncStorage.getItem("token").then((storedToken) => {
+      AsyncStorage.getItem("email").then((storedEmail) => {
+        if (storedToken) {
+          console.log(storedEmail);
+          GetUserProfile(storedEmail).then((response) => {
+            console.log("token");
+            console.log(response.data);
+            AuthCtx.authenticate(
+              storedToken,
+              storedEmail,
+              response.data.name,
+              response.data.preference
+            );
+            setIsLoading(false);
+          });
         }
-        setIsLoading(false);
-    }
-    fetchToken();  
-}, []);
+      });
+    });
+    
+  }
+  useEffect(() => {
+    console.log("started fresh");
+    fetchToken();
+  }, []);
 
-  async function ShowSplashScreen(){
+  async function ShowSplashScreen() {
     await SplashScreen.hideAsync();
   }
-if(!isLoading){
-  ShowSplashScreen();
-}
-return <Navigation />
+  if (isLoading) {
+    ShowSplashScreen();
+  }
+  return <Navigation />;
 }
 
 export default function App() {
-  
   return (
     <>
       <StatusBar color="invert" />
