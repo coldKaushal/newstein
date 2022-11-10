@@ -1,10 +1,7 @@
 import axios from "axios";
 import { defaultPreference } from "../store/defaultPreference";
 import errorFunction from "./errorFunction";
-//home wifi
-const URL = "http://192.168.0.107:8000/";
-//kaushal hotspot
-// const URL= "http://192.168.43.238:8000/";
+import { URL } from "./URL";
 
 export async function AddUser(name, email){
 

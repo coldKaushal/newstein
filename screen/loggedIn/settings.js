@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import { View, Text, StyleSheet, FlatList, Pressable } from "react-native";
+import { View, Text, StyleSheet, FlatList, Pressable, Alert } from "react-native";
 import { CATEGORY } from "../../data/genre";
 import { AuthContext } from "../../store/authContext";
 import { GetCategories, UpdateCategories } from "../../utilities/peferenceAPI";
 
 function Settings() {
   const authCtx = useContext(AuthContext);
+  const [categoryFetched, setCategoryFetched] = useState(false);
   const [categories, setCategories] = useState([]);
   const email = authCtx.email;
 
@@ -13,7 +14,11 @@ function Settings() {
 
     function handlePress(){
       if(categories.includes(item)){
-        setCategories(categories.filter(value => item!==value));
+        if(categories.length===1){
+          Alert.alert('Error', "Atleast one category must be selected");
+        }else{
+          setCategories(categories.filter(value => item!==value));
+        }
       }else{
         setCategories(categories.concat(item));
       }
@@ -46,7 +51,7 @@ function Settings() {
   function SetCategories() {
     UpdateCategories(email, categories)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -55,14 +60,17 @@ function Settings() {
   useEffect(() => {
     try {
       FetchCategories();
+      setCategoryFetched(true);
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [categoryFetched]);
 
   useEffect(()=>{
-    SetCategories();
-  }, [categories])
+    if(categoryFetched && categories.length!==0 ){
+      SetCategories();
+    }
+  }, [categories, categoryFetched])
 
   return (
     <View style={styles.root}>
