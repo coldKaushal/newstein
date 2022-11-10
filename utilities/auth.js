@@ -1,4 +1,5 @@
 import axios from "axios";
+import errorFunction from "./errorFunction";
 
 const API_KEY = "AIzaSyAJL3u8DBpRjlaNr_9bwenfGjtJQkfUEqM"
 
@@ -9,10 +10,9 @@ async function authenticate(mode, email, password){
         email: email,
         password: password,
         returnSecureToken: true
-        });
-   
-    const token = response.data.idToken;
-    return token;
+        }).catch(error => errorFunction(error));
+
+    return response.data.idToken;
     
 }
 export function createUser(email, password){

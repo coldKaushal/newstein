@@ -10,7 +10,14 @@ import AuthContextProvider, { AuthContext } from "./store/authContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as SplashScreen from "expo-splash-screen";
 import { GetUserProfile } from "./utilities/userAPI";
-SplashScreen.preventAutoHideAsync();
+import LoadingOverlay from "./components/ui/loadingOverlay";
+
+// SplashScreen.preventAutoHideAsync()
+//   .then((result) =>
+//     console.log(`SplashScreen.preventAutoHideAsync() succeeded: ${result}`)
+//   )
+//   .catch(err => console.log(err));
+
 const Stack = createNativeStackNavigator();
 
 function AuthStack() {
@@ -60,39 +67,43 @@ function Navigation() {
 function Root() {
   const AuthCtx = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
-    async function fetchToken() {
-    AsyncStorage.getItem("token").then((storedToken) => {
-      AsyncStorage.getItem("email").then((storedEmail) => {
-        if (storedToken) {
-          console.log(storedEmail);
-          GetUserProfile(storedEmail).then((response) => {
-            console.log("token");
-            console.log(response.data);
-            AuthCtx.authenticate(
-              storedToken,
-              storedEmail,
-              response.data.name,
-              response.data.preference
-            );
-            setIsLoading(false);
-          });
-        }
-      });
-    });
-    
+  async function fetchToken() {
+    AsyncStorage.getItem("token")
+      .then((storedToken) => {
+        AsyncStorage.getItem("email")
+          .then((storedEmail) => {
+            if (storedToken) {
+              console.log(storedEmail);
+              GetUserProfile(storedEmail)
+                .then((response) => {
+                  console.log("token");
+                  console.log(response.data);
+                  AuthCtx.authenticate(
+                    storedToken,
+                    storedEmail,
+                    response.data.name,
+                    response.data.preference
+                  );
+                  setIsLoading(false);
+                })
+                .catch((err) => console.log(err));
+            }
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
+    return "fetched";
   }
   useEffect(() => {
     console.log("started fresh");
-    fetchToken();
+    try {
+     fetchToken();
+    } catch (e) {
+      console.log("unable to fetch user");
+    }
   }, []);
 
-  async function ShowSplashScreen() {
-    await SplashScreen.hideAsync();
-  }
-  if (isLoading) {
-    ShowSplashScreen();
-  }
-  return <Navigation />;
+  return isLoading ? <LoadingOverlay message={"loading"} /> : <Navigation />
 }
 
 export default function App() {
