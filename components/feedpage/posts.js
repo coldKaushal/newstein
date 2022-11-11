@@ -1,9 +1,24 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
-import DATA from "../../data/response.json";
+import { FetchAllNews } from "../../utilities/newsAPI";
+import { Alert } from "react-native";
 import PostItem from "./postItem";
 
 function Posts() {
+  const [data, updateData]=useState();
+  
+  useEffect(() => {
+    FetchAllNews()
+      .then((res) => {
+        updateData(res.data.articles);
+      })
+      .catch((err) =>
+        Alert.alert(
+          "Error",
+         err
+        )
+      );
+  }, []);
   function createPost({ item }) {
     return (
       <View style={styles.item}>
@@ -15,7 +30,7 @@ function Posts() {
   return (
     <View>
       <FlatList
-        data={DATA.articles}
+        data={data}
         renderItem={createPost}
         keyExtractor={(item, index) => index}
       />

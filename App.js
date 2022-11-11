@@ -1,7 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TabScreen from "./screen/loggedIn/wrapperScreen";
 import SignIn from "./screen/notLoggedIn/signIn";
 import SignUp from "./screen/notLoggedIn/signUp";
@@ -11,6 +10,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as SplashScreen from "expo-splash-screen";
 import { GetUserProfile } from "./utilities/userAPI";
 import LoadingOverlay from "./components/ui/loadingOverlay";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // SplashScreen.preventAutoHideAsync()
 //   .then((result) =>
@@ -36,6 +36,7 @@ function AuthStack() {
         options={({ navigation }) => ({
           title: "Newstein",
         })}
+        
       />
     </Stack.Navigator>
   );
@@ -43,15 +44,7 @@ function AuthStack() {
 
 function AuthenticatedStack() {
   return (
-    <Stack.Navigator screenOptions={{}}>
-      <Stack.Screen
-        name="body"
-        component={TabScreen}
-        options={({ navigation }) => ({
-          title: "Newstein",
-        })}
-      />
-    </Stack.Navigator>
+    <TabScreen />
   );
 }
 

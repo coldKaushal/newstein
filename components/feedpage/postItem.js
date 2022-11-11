@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Image, View, Text, StyleSheet, Pressable } from "react-native";
 import PublishTime from "../../utilities/publishTime";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { AuthContext } from "../../store/authContext";
+
 function PostItem({ item }) {
 
   const [bookmarkIcon, setBookmarkIcon] = useState("bookmark-o")
-
-  function handlePress(){
+  const navigation = useNavigation();
+  const authCtx = useContext(AuthContext);
+  function handleBookMarkPress(){
     if(bookmarkIcon==="bookmark-o"){
       setBookmarkIcon("bookmark");
     }else{
@@ -16,11 +20,15 @@ function PostItem({ item }) {
     }
   }
 
+  function handlePress(){
+    authCtx.setItem(item);
+    navigation.navigate("post detail");
+  }
 
 
   return (
     <View style={styles.root}>
-      <Pressable android_ripple={{ color: "#ccc" }} style={{ margin: 0 }}>
+      <Pressable android_ripple={{ color: "#ccc" }} style={{ margin: 0 }} onPress={handlePress}>
         <Image source={{ uri: item.urlToImage }} style={styles.image} />
         <View style={styles.container}>
           <Text style={styles.category}>{"SPORTS"}</Text>
@@ -39,7 +47,7 @@ function PostItem({ item }) {
               <Text>15</Text>
             </View>
             <View style={styles.bookmark}>
-              <Pressable android_ripple={{color: '#ccc'}} onPress={handlePress} >
+              <Pressable android_ripple={{color: '#ccc'}} onPress={handleBookMarkPress} >
                 <FontAwesome name={bookmarkIcon} size={24} color="black" />
               </Pressable>
             </View>

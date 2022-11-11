@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   Pressable,
+  Alert,
 } from "react-native";
 import Posts from "../../components/feedpage/posts";
 import UserIntro from "../../components/feedpage/userIntro";
@@ -14,9 +15,10 @@ import SearchBar from "../../components/searchbar";
 import { rootStyle } from "../../utilities/rootStyles";
 import { Ionicons } from "@expo/vector-icons";
 import { AuthContext } from "../../store/authContext";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import PostDetail from "../../components/feedpage/postDetail";
 
-
-
+const Stack = createNativeStackNavigator();
 function Feedpage() {
   const authCtx = useContext(AuthContext);
   const username = authCtx.name;
@@ -24,29 +26,47 @@ function Feedpage() {
   function onChangeSearch(query) {
     setSearchQuery(query);
   }
-  return (
-    <View style={rootStyle.root}>
-        <View style={styles.headerWrapper}>
-          <UserIntro username={username} />
+
+  function HomePage({route, navigation}){
+    return <View style={rootStyle.root}>
+    <View style={styles.headerWrapper}>
+      <UserIntro username={username} />
+      <View style={styles.iconWrapper}>
+        <Pressable android_ripple={{ color: "#ccc" }}>
           <View style={styles.iconWrapper}>
-            <Pressable android_ripple={{color: '#ccc'}}>
-              <View style={styles.iconWrapper}>
-                <Ionicons
-                  name="filter"
-                  size={24} 
-                  color="black"
-                  style={styles.icon}
-                />
-              </View>
-            </Pressable>
+            <Ionicons
+              name="filter"
+              size={24}
+              color="black"
+              style={styles.icon}
+            />
           </View>
-        </View>
-        <SearchBar
-          searchQuery={searchQuery}
-          updateSearchQuery={onChangeSearch}
-        />
-        <Genre />
-        <Posts />
+        </Pressable>
+      </View>
+    </View>
+    <SearchBar searchQuery={searchQuery} updateSearchQuery={onChangeSearch} />
+    <Genre />
+    <Posts navigation={navigation} />
+  </View>
+  }
+
+  
+  return (
+    <View style={styles.root}>
+      <Stack.Navigator>
+        <Stack.Screen 
+        name="homepage" 
+        children={()=> <HomePage />} 
+        options={{
+          headerShown: false
+        }}/>
+        <Stack.Screen 
+        name="post detail" 
+        children={()=> <PostDetail />} 
+        options={{
+          headerShown: false
+        }}/>
+      </Stack.Navigator>
     </View>
   );
 }
@@ -54,6 +74,9 @@ function Feedpage() {
 export default Feedpage;
 
 const styles = StyleSheet.create({
+  root:{
+    flex: 1,
+  },
   headerWrapper: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -65,7 +88,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     justifyContent: "center",
     alignItems: "center",
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   icon: {
     height: 20,

@@ -26,24 +26,29 @@ export default function TabScreen() {
 
   return (
     <View style={styles.root}>
-      <Tab.Navigator>
+      <Tab.Navigator screenOptions={{
+        title: "Newstein",
+      }}>
         <Tab.Screen
           name="feedpage"
           children={() => <Feedpage username="Kaushal Aggarwal" />}
           options={{
-            title: "Home",
-            headerShown: false,
+            // title: "Home",
+            // headerShown: false,
             tabBarIcon: ({ color, size }) => (
               <TabBarIcon name="home" color={color} size={size} />
             ),
           }}
+          initialParams={
+            {title: "hellop"}
+          }
         />
         <Tab.Screen
           name="checker"
           component={NewsChecker}
           options={{
-            title: "Checker",
-            headerShown: false,
+            // title: "Checker",
+            // headerShown: false,
             tabBarIcon: ({ color, size }) => (
               <TabBarIcon name="search" color={color} size={size} />
             ),
@@ -53,8 +58,8 @@ export default function TabScreen() {
           name="bookmark"
           component={BookMark}
           options={{
-            title: "Saved",
-            headerShown: false,
+            // title: "Saved",
+            // headerShown: false,
             tabBarIcon: ({ color, size }) => (
               <TabBarIcon name="bookmarks" color={color} size={size} />
             ),
@@ -64,8 +69,8 @@ export default function TabScreen() {
           name="settings"
           component={Settings}
           options={{
-            title: "Personalize",
-            headerShown: false,
+            // title: "Personalize",
+            // headerShown: false,
             tabBarIcon: ({ color, size }) => (
               <TabBarIcon name="settings" color={color} size={size} />
             ),
@@ -77,8 +82,8 @@ export default function TabScreen() {
             <Profile username="Kaushal Aggarwal" email="kauagg111@gmail.com" />
           )}
           options={{
-            title: "Profile",
-            headerShown: false,
+            // title: "Profile",
+            // headerShown: false,
             tabBarIcon: ({ color, size }) => (
               <TabBarIcon name="person-circle" color={color} size={size} />
             ),

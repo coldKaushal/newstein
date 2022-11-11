@@ -8,6 +8,8 @@ export const AuthContext = createContext({
     name: '',
     preference: defaultPreference,
     isAuthenticated: false,
+    item: {},
+    setItem: (item)=> {},
     authenticate: (token,email, name, preference) => {},
     logout: () => {}
 });
@@ -19,6 +21,12 @@ export default function AuthContextProvider({children}){
     const [preference, setPreference] = useState(defaultPreference);
     const [name, setName] = useState();
     const [email, setEmail] = useState();
+    const [item, updateItem] = useState();
+
+
+    function setItem(item){
+        updateItem(item);
+    }
     function authenticate(token,email,name, preference){
         console.log(name);
         setAuthToken(token);
@@ -33,6 +41,7 @@ export default function AuthContextProvider({children}){
         setAuthToken(null);
         setName(null);
         setEmail(null);
+        setItem(null);
         setPreference(defaultPreference);
         AsyncStorage.removeItem('token');
         AsyncStorage.removeItem('email');
@@ -42,6 +51,8 @@ export default function AuthContextProvider({children}){
         name: name,
         email: email,
         preference: preference,
+        item: item,
+        setItem: setItem,
         isAuthenticated: !!authToken,
         authenticate: authenticate,
         logout: logout
