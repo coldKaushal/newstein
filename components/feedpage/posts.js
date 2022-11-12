@@ -3,14 +3,16 @@ import { View, Text, StyleSheet, FlatList } from "react-native";
 import { FetchAllNews } from "../../utilities/newsAPI";
 import { Alert } from "react-native";
 import PostItem from "./postItem";
+import LoadingOverlay from "../ui/loadingOverlay";
 
 function Posts() {
   const [data, updateData]=useState();
-  
+  const [isLoading, updateLoading] = useState(true);
   useEffect(() => {
     FetchAllNews()
       .then((res) => {
         updateData(res.data.articles);
+        updateLoading(false);
       })
       .catch((err) =>
         Alert.alert(
@@ -18,6 +20,7 @@ function Posts() {
          err
         )
       );
+      
   }, []);
   function createPost({ item }) {
     return (
@@ -27,7 +30,7 @@ function Posts() {
     );
   }
 
-  return (
+  return isLoading ? <LoadingOverlay message={"Fetching latest news"} /> : (
     <View>
       <FlatList
         data={data}
