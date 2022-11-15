@@ -77,7 +77,7 @@ function Root() {
                     response.data.name,
                     response.data.preference
                   );
-                  setIsLoading(false);
+                  
                 })
                 .catch((err) => console.log(err));
             }
@@ -90,7 +90,9 @@ function Root() {
   useEffect(() => {
     console.log("started fresh");
     try {
-     fetchToken();
+     fetchToken().then(()=>{
+      setIsLoading(false);
+     });
     } catch (e) {
       console.log("unable to fetch user");
     }
