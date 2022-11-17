@@ -39,11 +39,11 @@ function PostItem({ item }) {
           </View>
           <View style={styles.subs1}>
             <View style={styles.rowView}>
-              <Ionicons name="star-outline" size={18} color="black" />
+            <Ionicons name="thumbs-up-outline" size={24} color="black" />
               <Text>678</Text>
             </View>
             <View style={styles.rowView}>
-              <FontAwesome5 name="comment" size={18} color="black" />
+            <Ionicons name="ios-thumbs-down-outline" size={24} color="black" />
               <Text>15</Text>
             </View>
             <View style={styles.bookmark}>

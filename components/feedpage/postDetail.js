@@ -7,12 +7,14 @@ import {
   ScrollView,
   Button,
   Linking,
+  Pressable,
 } from "react-native";
 import { AuthContext } from "../../store/authContext";
 import { FetchThisNewsDetail } from "../../utilities/newsAPI";
 import PublishTime from "../../utilities/publishTime";
 import LoadingOverlay from "../ui/loadingOverlay";
 import { MaterialIcons } from "@expo/vector-icons";
+import { AddBookmark } from "../../utilities/userData";
 
 export default function PostDetail() {
   const authCtx = useContext(AuthContext);
@@ -20,6 +22,12 @@ export default function PostDetail() {
   const [itemContent, setItemContent] = useState();
   const [isLoading, setIsLoading] = useState(true);
   console.log(authCtx.item);
+
+  function handleBookMarkPress(){
+    // console.log(authCtx.email);
+    AddBookmark(authCtx.email, item);
+  }
+
   const handlePress = useCallback(async () => {
     try {
       const supported = await Linking.canOpenURL(item.url);
@@ -71,9 +79,11 @@ export default function PostDetail() {
                 color="black"
               />
             </View>
+            <Pressable onPress={handleBookMarkPress}>
             <View>
               <MaterialIcons name="bookmark-outline" size={30} color="black" />
             </View>
+            </Pressable>
           </View>
           <Text style={styles.itemContent}>{itemContent}</Text>
           <Button title="View article on website" onPress={handlePress} />

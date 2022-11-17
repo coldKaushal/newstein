@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useState, useCallback } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import { FetchAllNews } from "../../utilities/newsAPI";
 import { Alert } from "react-native";
 import PostItem from "./postItem";
 import LoadingOverlay from "../ui/loadingOverlay";
+import { useFocusEffect } from "@react-navigation/native";
 
 function Posts() {
   const [data, updateData]=useState();
   const [isLoading, updateLoading] = useState(true);
-  useEffect(() => {
-    FetchAllNews()
+  useFocusEffect(
+    useCallback(()=>{
+      FetchAllNews()
       .then((res) => {
         updateData(res.data.articles);
         updateLoading(false);
@@ -20,8 +22,8 @@ function Posts() {
          err
         )
       );
-      
-  }, []);
+    }, [])
+  );
   function createPost({ item }) {
     return (
       <View style={styles.item}>

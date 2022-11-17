@@ -11,6 +11,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { GetUserProfile } from "./utilities/userAPI";
 import LoadingOverlay from "./components/ui/loadingOverlay";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { CheckServer } from "./utilities/newsAPI";
 
 // SplashScreen.preventAutoHideAsync()
 //   .then((result) =>
@@ -102,6 +103,18 @@ function Root() {
 }
 
 export default function App() {
+  const [connectedToServer, UpdateConnectedToServer] = useState(false);
+  async function checkServer(){
+    const res = await CheckServer();
+    console.log(res.status);
+    if(res.status && res.status===200){
+      UpdateConnectedToServer(true);
+    }
+  }
+  useEffect(()=>{
+    checkServer().catch(err=>console.log(err));
+  }, [])
+  if(connectedToServer){
   return (
     <>
       <StatusBar color="invert" />
@@ -111,7 +124,9 @@ export default function App() {
         </AuthContextProvider>
       </View>
     </>
-  );
+  )}else{
+    return <LoadingOverlay message={"trying to connect to backend"} />
+  }
 }
 
 const styles = StyleSheet.create({
