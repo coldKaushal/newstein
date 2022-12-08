@@ -27,7 +27,9 @@ export default function PostDetail() {
     // console.log(authCtx.email);
     AddBookmark(authCtx.email, item);
   }
-
+  function BeautifyString(text){
+    return text.replace(/[\r\n]{2,}/g, "\n").replace(/\t+/g, '').trim().replace(/\ +/g, ' ');
+  }
   const handlePress = useCallback(async () => {
     try {
       const supported = await Linking.canOpenURL(item.url);
@@ -85,7 +87,7 @@ export default function PostDetail() {
             </View>
             </Pressable>
           </View>
-          <Text style={styles.itemContent}>{itemContent}</Text>
+          <Text style={styles.itemContent}>{BeautifyString(itemContent)}</Text>
           <Button title="View article on website" onPress={handlePress} />
         </View>
       </ScrollView>

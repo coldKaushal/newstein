@@ -3,4 +3,4 @@
 //kaushal hotspot
 // export const URL= "http://192.168.43.238:8000/";
 // heroku 
-export const URL = "https://hidden-island-92674.herokuapp.com/";
+export const URL = "https://newstein-backend-coldkaushal.onrender.com/";
