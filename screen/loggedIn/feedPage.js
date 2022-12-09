@@ -46,7 +46,7 @@ function Feedpage() {
     </View>
     <SearchBar searchQuery={searchQuery} updateSearchQuery={onChangeSearch} />
     <Genre />
-    <Posts navigation={navigation} />
+    <Posts searchQuery={searchQuery} />
   </View>
   }
 

@@ -8,7 +8,7 @@ export const AuthContext = createContext({
     name: '',
     preference: defaultPreference,
     isAuthenticated: false,
-    item: {},
+    item: '',
     setItem: (item)=> {},
     authenticate: (token,email, name, preference) => {},
     logout: () => {}

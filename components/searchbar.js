@@ -30,5 +30,6 @@ const styles = StyleSheet.create({
   },
   textInput: {
     marginLeft: 8,
+    width: "100%"
   },
 });

@@ -22,8 +22,8 @@ function BookMark({ navigation }) {
       setIsLoading(true);
       FetchBookmarks(AuthCtx.email)
         .then((res) => {
-          if (res && res.data && res.data.bookmark) {
-            setData(res.data.bookmark);
+          if (res && res.data) {
+            setData(res.data);
           }
           setIsLoading(false);
         })

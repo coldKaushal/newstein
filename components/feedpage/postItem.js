@@ -21,7 +21,7 @@ function PostItem({ item }) {
   }
 
   function handlePress(){
-    authCtx.setItem(item);
+    authCtx.setItem(item._id);
     navigation.navigate("post detail");
   }
 
@@ -40,11 +40,11 @@ function PostItem({ item }) {
           <View style={styles.subs1}>
             <View style={styles.rowView}>
             <Ionicons name="thumbs-up-outline" size={24} color="black" />
-              <Text>678</Text>
+              <Text>{item.likes}</Text>
             </View>
             <View style={styles.rowView}>
             <Ionicons name="ios-thumbs-down-outline" size={24} color="black" />
-              <Text>15</Text>
+              <Text>{item.dislikes}</Text>
             </View>
             <View style={styles.bookmark}>
               <Pressable android_ripple={{color: '#ccc'}} onPress={handleBookMarkPress} >
