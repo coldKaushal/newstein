@@ -54,7 +54,7 @@ function BookMark({ navigation }) {
             </View>
           </View>
           <SearchBar />
-          <Genre />
+          {/* <Genre /> */}
           <Posts data={data} />
         </ScrollView>
       </View>

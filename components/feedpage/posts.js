@@ -6,14 +6,17 @@ import PostItem from "./postItem";
 import LoadingOverlay from "../ui/loadingOverlay";
 import { useFocusEffect } from "@react-navigation/native";
 import { ScrollView } from "react-native-web";
+import { AuthContext } from "../../store/authContext";
 
 function Posts({ searchQuery }) {
   const [data, updateData] = useState();
+  const AuthCtx = useContext(AuthContext);
+  const email = AuthCtx.email;
   const [isLoading, updateLoading] = useState(true);
   useFocusEffect(
     useCallback(() => {
       if (searchQuery === "") {
-        FetchAllNews()
+        FetchAllNews(email)
           .then((res) => {
             updateData(res.data);
             updateLoading(false);

@@ -31,7 +31,7 @@ function PostItem({ item }) {
       <Pressable android_ripple={{ color: "#ccc" }} style={{ margin: 0 }} onPress={handlePress}>
         <Image source={{ uri: item.urlToImage }} style={styles.image} />
         <View style={styles.container}>
-          <Text style={styles.category}>{"SPORTS"}</Text>
+          <Text style={styles.category}>{item.category}</Text>
           <Text style={styles.title}>{item.title}</Text>
           <View style={styles.subs}>
             <Text style={styles.author}>{item.author}</Text>

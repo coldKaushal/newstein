@@ -1,8 +1,10 @@
 import axios from "axios";
 import { URL } from "./URL";
 
-export async function FetchAllNews(){
-    const response = axios.post(URL + "getAllNews", {});
+export async function FetchAllNews(email){
+    const response = axios.post(URL + "getAllNews", {
+        email: email
+    });
     return response;
 }
 
