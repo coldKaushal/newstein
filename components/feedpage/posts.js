@@ -1,11 +1,10 @@
 import { useContext, useState, useCallback } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
 import { FetchAllNews, SearchNews } from "../../utilities/newsAPI";
 import { Alert } from "react-native";
 import PostItem from "./postItem";
 import LoadingOverlay from "../ui/loadingOverlay";
 import { useFocusEffect } from "@react-navigation/native";
-import { ScrollView } from "react-native-web";
 import { AuthContext } from "../../store/authContext";
 
 function Posts({ searchQuery }) {
@@ -35,7 +34,7 @@ function Posts({ searchQuery }) {
   function createPost({item} ) {
     console.log(item);
     return (
-      <View style={styles.item} key={item}>
+      <View style={styles.item} key={item._id}>
         <PostItem item={item} />
       </View>
      
@@ -43,7 +42,7 @@ function Posts({ searchQuery }) {
   }
 
   return isLoading ? (
-    <LoadingOverlay message={"Fetching latest news"} />
+    <LoadingOverlay message={"Fetching latest news..."} />
   ) : (
     <View style={styles.root}>
       <FlatList
@@ -51,7 +50,9 @@ function Posts({ searchQuery }) {
         renderItem={createPost}
         keyExtractor={(item, index) => index}
       />
-      
+      {/* <ScrollView>
+        {data.map(createPost)}
+      </ScrollView> */}
     </View>
   );
 }

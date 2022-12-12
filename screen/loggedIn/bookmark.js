@@ -36,12 +36,13 @@ function BookMark({ navigation }) {
   );
 
   if (isLoading) {
-    return <LoadingOverlay message={"Loading your bookmarks"} />;
+    return <LoadingOverlay message={"Loading your bookmarks..."} />;
   } else {
     return (
       <View style={rootStyle.root}>
         <ScrollView>
-          <Text style={styles.title}>BookMark</Text>
+          <View style={[styles.rowView, styles.bookmarkWrapper]}>
+          <Text style={styles.title}>Book Mark</Text>
           <View style={[styles.rowView, styles.bookmarkWrapper]}>
             <View style={styles.rowView}>
               <FontAwesome
@@ -53,7 +54,8 @@ function BookMark({ navigation }) {
               <Text style={styles.bookmarkCount}>{data.length}</Text>
             </View>
           </View>
-          <SearchBar />
+          </View>
+          {/* <SearchBar /> */}
           {/* <Genre /> */}
           <Posts data={data} />
         </ScrollView>

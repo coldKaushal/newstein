@@ -66,7 +66,7 @@ export default function SignIn() {
 
 
   if (isAuthenticating) {
-    return <LoadingOverlay message={"login...."} />;
+    return <LoadingOverlay message={"Login...."} />;
   }
   return (
     <View style={styles.root}>

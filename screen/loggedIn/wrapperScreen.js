@@ -43,7 +43,7 @@ export default function TabScreen() {
             {title: "hellop"}
           }
         />
-        <Tab.Screen
+        {/* <Tab.Screen
           name="checker"
           component={NewsChecker}
           options={{
@@ -53,7 +53,7 @@ export default function TabScreen() {
               <TabBarIcon name="search" color={color} size={size} />
             ),
           }}
-        />
+        /> */}
         <Tab.Screen
           name="bookmark"
           component={BookMark}

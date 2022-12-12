@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 10,
     paddingBottom: 16,
+    marginTop: 10,
   },
   category: {
     color: "#A8A8A8",

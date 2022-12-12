@@ -125,7 +125,7 @@ export default function App() {
       </View>
     </>
   )}else{
-    return <LoadingOverlay message={"trying to connect to backend"} />
+    return <LoadingOverlay message={"Connecting to the Cloud..."} />
   }
 }
 

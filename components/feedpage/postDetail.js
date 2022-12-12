@@ -33,11 +33,12 @@ export default function PostDetail() {
     AddBookmark(authCtx.email, item);
   }
   function BeautifyString(text) {
-    return text
+    const newText= text
       .replace(/[\r\n]{2,}/g, "\n")
       .replace(/\t+/g, "")
       .trim()
       .replace(/\ +/g, " ");
+      return newText.replace(/\./g, ".\n\n");
   }
   const handlePress = useCallback(async () => {
     try {
@@ -84,7 +85,7 @@ export default function PostDetail() {
     })
   }
   return isLoading ? (
-    <LoadingOverlay message={"Fetching Full News Content"} />
+    <LoadingOverlay message={"Fetching full news content..."} />
   ) : (
     <View style={styles.root}>
       <ScrollView>
@@ -126,7 +127,7 @@ export default function PostDetail() {
             </Pressable>
           </View>
           <Text style={styles.itemContent}>{BeautifyString(itemContent)}</Text>
-          <Button title="View article on website" onPress={handlePress} />
+          <Button title="Read the article on website" onPress={handlePress} />
         </View>
       </ScrollView>
     </View>
@@ -137,6 +138,7 @@ export default function PostDetail() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+    backgroundColor: 'white',
   },
   container: {
     padding: 10,
@@ -168,5 +170,8 @@ const styles = StyleSheet.create({
   },
   itemContent: {
     fontSize: 18,
+    marginBottom: 10,
+    marginTop: 10,
+    // textAlign: 'justify',
   },
 });

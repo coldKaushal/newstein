@@ -62,7 +62,7 @@ export default function SignUp() {
     navigation.replace("signin");
   }
   if (isAuthenticating) {
-    return <LoadingOverlay message={"creating user...."} />;
+    return <LoadingOverlay message={"Creating your account...."} />;
   }
   return (
     <ScrollView>

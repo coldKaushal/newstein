@@ -31,7 +31,7 @@ function Feedpage() {
     return <View style={rootStyle.root}>
     <View style={styles.headerWrapper}>
       <UserIntro username={username} />
-      <View style={styles.iconWrapper}>
+      {/* <View style={styles.iconWrapper}>
         <Pressable android_ripple={{ color: "#ccc" }}>
           <View style={styles.iconWrapper}>
             <Ionicons
@@ -42,7 +42,7 @@ function Feedpage() {
             />
           </View>
         </Pressable>
-      </View>
+      </View> */}
     </View>
     <SearchBar searchQuery={searchQuery} updateSearchQuery={onChangeSearch} />
     {/* <Genre /> */}
